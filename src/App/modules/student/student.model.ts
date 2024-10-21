@@ -101,6 +101,40 @@ const blogPostSchema = new Schema({
   });
   
   const Skill = model('Skill', skillSchema);
+  const projectSchema = new Schema({
+    title: {
+      type: String,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    tech: {
+      type: [String],
+      required: true,
+    },
+   
+    liveLink: {
+      type: String,
+      required: true,
+    },
+    frontendRepo: {
+      type: String,
+      required: true,
+    },
+    backendRepo: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
+  });
+  
+  // Create a model from the schema
+  const Project = model('Project', projectSchema);
   
 
 
@@ -110,5 +144,6 @@ export const studeSchema = {
     Admin,
     BlogPost,
     Skill,
+    Project
 
 }

@@ -46,8 +46,6 @@ const adminLogin = async (req: Request, res: Response) => {
 
 const createBlogPost = async (req: Request, res: Response) => {
   try {
-
-
     const blogPost = new studeSchema.BlogPost(
       req.body
     );
@@ -74,7 +72,7 @@ const getBlogPost = async (req: Request, res: Response) => {
 
 const addSkill = async (req: Request, res: Response) => {
   const { category, items } = req.body;
-  console.log(req.body);
+
   
   try {
     const findcategory = await studeSchema.Skill.findOne({ category });
@@ -90,7 +88,7 @@ const addSkill = async (req: Request, res: Response) => {
     }
   }
   catch (error) {
-    console.log(error);
+   
     res.status(500).json({ message: "Server error", error });
   }
 
@@ -112,8 +110,49 @@ const getSkill = async (req: Request, res: Response) => {
     res.status(500).json({ message: 'Server error', error });
   }
 }
+const addProject = async (req: Request, res: Response) => {
+  try {
+    const project = new studeSchema.Project(
+      req.body
+    );
+
+    await project.save();
+
+    res.status(201).json({ message: "Project created", project });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+}
+const getProject = async (req: Request, res: Response) => {
+  try {
+    const project = await studeSchema.Project.find();
+
+    res.status(200).json({ project });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+};
+const getBlogPostById = async (req: Request, res: Response) => {
 
 
+  try {
+    const blogPost = await studeSchema.BlogPost.findById(req.params.id);
+    res.status(200).json({ blogPost });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+}
+const getProjectById = async (req: Request, res: Response) => {
+
+  try {
+    const project = await studeSchema.Project.findById(req.params.id);
+    res.status(200).json({ project });
+  }
+  catch (error) {
+    res.status(500).json({ message: "Server error", error });
+  }
+
+}
 
 
 
@@ -123,7 +162,11 @@ const userController = {
   createBlogPost,
   getBlogPost,
   addSkill,
-  getSkill
+  getSkill,
+  addProject,
+  getProject,
+  getBlogPostById,
+  getProjectById
 };
 
 export default userController;
